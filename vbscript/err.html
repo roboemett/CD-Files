@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<script language="vbs">
+sub calculate()
+
+dim x, y, z, msg
+on error resume next
+x = InputBox("Enter the dividend:")
+
+do while (true)
+	y = InputBox("Enter the divisor:")
+	z = x / y
+
+	if err then
+		msg = "You must enter a non-zero divisor!"
+		msgbox(msg)
+		err.clear
+	else
+		break
+	end if
+loop
+	
+msg = "The answer is " & z
+MsgBox(msg)
+
+end sub
+</script>
+</HEAD>
+<BODY>
+<script language="vbs">
+call calculate
+</script>
+</BODY>
+</HTML>

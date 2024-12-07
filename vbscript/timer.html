@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>ActiveX/VBScript Timer Example</TITLE>
+
+<SCRIPT LANGUAGE="VBS">
+<!--
+dim step
+step = 3
+
+sub timer1_time
+
+if theLabel.Angle = 360 then
+	theLabel.Angle = 1
+end if
+theLabel.Angle = theLabel.Angle + 2
+theLabel.FontSize = theLabel.FontSize + step
+theLabel.forecolor = rnd() * 16777216
+if theLabel.FontSize > 100 then
+	step = -3
+end if
+if theLabel.FontSize < 10 then
+	step = 3
+end if
+
+end sub
+
+sub toggle_onClick()
+	if (timer1.enable) then
+		timer1.enable = 0
+	else
+		timer1.enable = 1
+	end if
+end sub
+-->
+</SCRIPT>
+</HEAD>
+<BODY>
+<H1>VB Script Timer Example</H1>
+You must be running a VBScript enabled browser and
+have the Microsoft ActiveX controls
+installed for this demonstration to work.
+Click this button
+<INPUT TYPE="button" NAME="toggle" VALUE="On/Off" >
+to turn the demo on and off.
+<BR>
+<HR>
+<CENTER>
+<OBJECT
+	classid="clsid:99B42120-6EC7-11CF-A6C7-00AA00A47DD2"
+	id=theLabel
+    width=400
+    height=400
+	align=center
+	hspace=20
+	vspace=20 >
+<param name="_extentX" value="50" >
+<param name="_extentY" value="700" >
+<param name="angle" value="0" >
+<param name="alignment" value="2" >
+<param name="BackStyle" value="0" >
+<param name="caption" value="VBSCRIPT">
+<param name="FontName" value="Arial">
+<param name="FontSize" value="5">
+<param name="FontBold" value="1">
+<param name="frcolor" value="6">
+</OBJECT>
+</CENTER>
+<BR>
+
+<OBJECT
+	classid="clsid:59CCB4A0-727D-11CF-AC36-00AA00A47DD2"
+	id=timer1 >
+<param name="TimeOut" value="50">
+<param name="enable" value="1">
+</OBJECT>
+<BR>
+<HR>
+</BODY>
+</HTML>
+

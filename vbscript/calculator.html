@@ -1,0 +1,136 @@
+<HTML>
+<HEAD>
+<TITLE>VBScript Calculator</TITLE>
+
+</HEAD>
+<BODY>
+<SCRIPT LANGUAGE="VBScript">
+<!--
+Dim Operand		' operand waiting for operation
+Dim NewNum		' Flag indicating a new operand is being entered
+Dim Oper		' Pending operation
+
+sub PressKey(Byval Num)
+	If NewNum Then
+   		Document.calc.display.value = Num
+   		NewNum = False
+	Else
+		If Document.calc.display.value = "0" Then
+			Document.calc.display.value = CStr(Num)
+		Else
+			Document.calc.display.value = Document.calc.display.value & CStr(Num)
+		End If
+	End If
+end sub
+
+sub Decimal_onClick()
+	Dim cv			' Current value
+	cv = Document.calc.display.value
+	If NewNum Then
+		cv = "0."
+		NewNum = False
+	Else
+		If instr(cv, ".") = 0 Then
+			cv = cv & "."
+		End If
+	End If
+	Document.calc.display.value = cv
+end sub
+
+sub calculate(ByVal Op)
+	Dim cd		' Current display
+	cd = Document.calc.display.value
+	If NewNum And Op <> "=" Then
+	' User is hitting op keys repeatedly, so don't do anything
+	Else
+		NewNum = True
+		Select Case oper
+		Case "+"
+			Operand = CDbl(Operand) + CDbl(cd)
+		Case "-"
+			Operand = CDbl(Operand) - CDbl(cd)
+		Case "/"
+			Operand = CDbl(Operand) / CDbl(cd)
+		Case "*"
+			Operand = CDbl(Operand) * CDbl(cd)
+		Case Else
+			Operand = cd
+		End Select
+		Document.calc.display.value = Operand
+		oper = Op
+	End If
+end sub
+
+sub ClearEntry_onClick()
+	Document.calc.display.value = "0"
+    NewNum = True
+end sub
+
+sub Clear_onClick()
+	Operand = 0
+ 	oper = ""	
+	ClearEntry_onClick
+end sub
+
+sub Neg_onClick()
+	Document.calc.display.value = -1 * CDbl(Document.calc.display.value)
+end sub
+
+sub Percent_onClick()
+	Document.calc.display.value = (CDbl(Document.calc.display.value) / 100) * Operand
+end sub
+
+-->
+</SCRIPT>
+
+<CENTER>
+<H1>
+VBScript Calculator
+</H1>
+<FORM Name="calc">
+<TABLE>
+<B>
+<TABLE BORDER=2 WIDTH=50 HEIGHT=60 CELLPADDING=1 CELLSPACING=5>
+<TR>
+<TD></TD>
+<TD COLSPAN=3 ALIGN=MIDDLE>
+<INPUT NAME="Display" TYPE="Text" SIZE=30 VALUE="0" WIDTH=100%>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD><INPUT NAME="Seven" TYPE="Button" VALUE="  7  " OnClick="PressKey(7)"></TD>
+<TD><INPUT NAME="Eight" TYPE="Button" VALUE="  8  " OnClick="PressKey(8)"></TD>
+<TD><INPUT NAME="Nine" TYPE="Button" VALUE="  9  " OnClick="PressKey(9)"></TD>
+<TD><INPUT NAME="Neg" TYPE="Button" VALUE=" +/- " ></TD>
+<TD><INPUT NAME="Percent" TYPE="Button" VALUE="  % " ></TD>
+</TR>
+<TR>
+<TD><INPUT NAME="Four" TYPE="Button" VALUE="  4  " OnClick="PressKey(4)"></TD>
+<TD><INPUT NAME="Five" TYPE="Button" VALUE="  5  " OnClick="PressKey(5)"></TD>
+<TD><INPUT NAME="Six" TYPE="Button" VALUE="  6  " OnClick="PressKey(6)"></TD>
+<TD ALIGN=MIDDLE><INPUT NAME="Plus" TYPE="Button" VALUE="  +  " OnClick='calculate("+")'></TD>
+<TD ALIGN=MIDDLE><INPUT NAME="Minus" TYPE="Button" VALUE="   -   " OnClick='calculate("-")'></TD>
+</TR>
+<TR>
+<TD><INPUT NAME="One" TYPE="Button" VALUE="  1  " OnClick="PressKey(1)"></TD>
+<TD><INPUT NAME="Two" TYPE="Button" VALUE="  2  " OnClick="PressKey(2)"></TD>
+<TD><INPUT NAME="Three" TYPE="Button" VALUE="  3  " OnClick="PressKey(3)"></TD>
+<TD ALIGN=MIDDLE><INPUT NAME="Multiply" TYPE="Button" VALUE="  *  " OnClick='calculate("*")'></TD>
+<TD ALIGN=MIDDLE><INPUT NAME="Divide" TYPE="Button" VALUE="   /   " OnClick='calculate("/")'></TD>
+</TR>
+<TR>
+<TD><INPUT NAME="Zero" TYPE="Button" VALUE="  0  " OnClick="PressKey(0)"></TD>
+<TD><INPUT NAME="Decimal" TYPE="Button" VALUE="   .  " ></TD>
+<TD><INPUT NAME="Clear" TYPE="Button" VALUE="  C  " ></TD>
+<TD><INPUT NAME="ClearEntry" TYPE="Button" VALUE="  CE " ></TD>
+<TD><INPUT NAME="Equals" TYPE="Button" VALUE="  =  " OnClick='calculate("=")'></TD>
+</TR>
+</TABLE>
+</TABLE>
+</B>
+</FORM>
+<BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
+</FONT>
+</BODY>
+</HTML>

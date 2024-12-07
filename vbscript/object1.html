@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<script language="vbs">
+sub btnRotate_onClick()
+	lblActiveLbl.Angle = lblActiveLbl.Angle + 45
+end sub
+
+sub btnGrow_onClick()
+	lblActiveLbl.FontSize = lblActiveLbl.FontSize + 2
+end sub
+
+sub btnShrink_onClick()
+	lblActiveLbl.FontSize = lblActiveLbl.FontSize - 2
+end sub
+
+</script>
+</HEAD>
+<BODY>
+
+<OBJECT
+	classid="clsid:99B42120-6EC7-11CF-A6C7-00AA00A47DD2"
+	id=lblActiveLbl
+	width=250
+	height=150
+	align=left
+	hspace=10
+	vspace=10
+>
+<PARAM NAME="Angle" VALUE="45">
+<PARAM NAME="Alignment" VALUE="2">
+<PARAM NAME="BackStyle" VALUE="0">
+<PARAM NAME="Caption" VALUE="Hi, I'm a label!">
+<PARAM NAME="FontName" VALUE="Arial">
+<PARAM NAME="FontSize" VALUE="16">
+<PARAM NAME="FrColor" VALUE="0">
+</OBJECT>
+<p>
+<INPUT TYPE="button" NAME="btnRotate" VALUE="Rotate label">
+<p>
+<INPUT TYPE="button" NAME="btnGrow" VALUE="Enlarge label">
+<p>
+<INPUT TYPE="button" NAME="btnShrink" VALUE="Shrink label">
+</BODY>
+</HTML>

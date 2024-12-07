@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<script language="vbs">
+
+sub text1_onchange()
+	Dim msg, theObj
+	set theObj = document.myForm
+	msg = "Your entries now read " & theObj.text1.value _
+	    & " and " & theObj.text2.value
+	msgbox(msg)
+end sub
+
+sub text2_onchange()
+	call text1_onchange()
+end sub
+
+</script>
+</HEAD>
+<BODY>
+<FORM NAME="myForm">
+<INPUT TYPE="text" NAME="text1" VALUE="Change me!"><p>
+<INPUT TYPE="text" NAME="text2" VALUE="Change me too!">
+</FORM>
+</BODY>
+</HTML>

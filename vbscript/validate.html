@@ -1,0 +1,215 @@
+<HTML>
+<HEAD>
+<script language = "vbs">
+
+'***************
+' The general data validation functions start here.
+'***************
+
+function textLength(buf, max, min)
+
+'Returns true if the length of the text in buf
+'is between max and min. Returns false otherwise.
+
+if (len(buf) <= max And len(buf) >= min) then
+	textLength = true
+else
+	textLength = false
+end if
+
+end function	
+
+'***************
+function isZipcode(x)
+
+'Returns true if x is a 5 digit ZIP code
+'or a 9 digit ZIP code in the format
+'xxxxx-xxxx. Returns false otherwise.
+	
+dim ln
+isZipCode = false
+
+if (len(x) = 5) then
+	ln = 5
+elseif (len(x) = 10) then
+	ln = 10
+else
+	exit function
+end if
+
+'First 5 characters must all be digits.
+if (NOT isNumeric(left(x,5))) then exit function
+		
+'If it's a 5 digit ZIP we're done.
+if (ln = 5) then
+	isZipCode = true
+	exit function
+end if
+
+'The sixth character must be "-".
+if (instr(x,"-") <> 6) then exit function
+
+'The last 4 characters must be digits.
+if (NOT isNumeric(right(x,4))) then exit function
+
+'Success!		
+isZipCode = true
+
+end function
+
+'***************
+function isPhonenumber(x)
+
+'Returns true if x is a phone number in the
+'format xxx-xxx-xxxx. Returns false otherwise.
+
+isPhonenumber = False
+
+'It must be 12 characters long.
+if (len(x) <> 12) then exit function
+
+'Check first three chars. Since no area codes start with zero
+'the val of the first three chars must be >= 100.
+if (left(x,3) < 100) then exit function
+
+'The 4th character should be a "-"
+if (mid(x,4,1) <> "-") then exit function
+
+'The 5th thru 7th characters should evaluate to a
+'number >= 100.
+if (mid(x,5,3) < 100) then exit function
+
+'The 8th character should be a "-".
+if (mid(x,8,1) <> "-") then exit function
+
+'The last 4 characters must be numeric.
+if (NOT isNumeric(right(x,4))) then exit function
+
+'All tests passed, so...
+isPhonenumber = True
+
+end function
+
+'***************
+function isBetween(x, limit1, limit2)
+
+'Returns true if x is between limit1 and
+'limit2, or equal to either. Returns false
+'otherwise.
+
+dim max, min
+
+if (limit1 > limit2) then
+	max = limit1
+	min = limit2
+else
+	max = limit2
+	min = limit1
+end if
+
+if (cint(x) = min Or cint(x) = max) then
+	isBetween = true
+elseif (cint(x) > min And Cint(x) < max) then
+	isBetween = true
+else
+	isBetween = false
+end if
+
+end function
+
+'***************
+' The demonstration-specific event procedures start here.
+'***************
+
+sub phone_onchange()
+
+dim msg, x
+x = document.form1.phone.value
+if (NOT isPhonenumber(x)) then
+	msg = "Please enter a phone number in the xxx-xxx-xxxx format"
+	msgbox(msg)
+    document.form1.phone.focus()
+end if
+
+end sub
+
+'***************
+
+sub number_onchange()
+
+dim msg, x, reply
+x = document.form1.number.value
+if (NOT isNumber(x)) then
+	var msg = "A number, puh-leeese!"
+	msgbox(msg)
+	document.form1.number.focus()
+end if
+
+end sub
+
+'***************
+
+sub zip_onchange()
+
+dim msg, x
+x = document.form1.zip.value
+if (NOT isZipcode(x)) then
+	msg = "That's not a valid ZIP code, knucklehead!"
+	msgbox(msg)
+    document.form1.zip.focus()
+end if
+
+end sub
+
+'***************
+
+sub between_onchange()
+
+dim msg, max, min, x
+max = 100
+min = 10
+x = document.form1.between.value
+if (NOT isBetween(x, max, min)) then
+	msg = "Did you flunk math? Try again!"
+	msgbox(msg)
+    document.form1.between.focus()
+end if
+
+end sub
+
+'***************
+
+sub length_onchange()
+
+dim msg, max, min, text
+max = 10
+min = 5
+text = document.form1.length.value
+if (NOT textLength(text, max, min)) then
+	msg = "Forget how to count? Try again, please!"
+	msgbox(msg)
+	document.form1.length.focus()
+end if
+
+end sub
+
+</script>
+</HEAD>
+<BODY>
+<FORM name="form1">
+<H2>VBScript Data Validation Demo</H2>
+<HR>
+Enter your phone number in the format xxx-xxx-xxxx:
+<INPUT type="text" name="phone" value="">
+<P>
+Enter a number, any number (but numbers only!):
+<INPUT type="text" name="number" value=""><P>
+Enter a 5 digit or 9 digit (xxxxx-xxxx) ZIP code:
+<INPUT type="text" name="zip" value=""><P>
+Enter a value between 10 and 100:
+<INPUT type="text" name="between" value="" ><P>
+Enter some text between 5 and 10 characters long:
+<INPUT type="text" name="length" value="" "><P>
+</FORM>
+</BODY>
+</HTML>

@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<title>
+Demonstrates variable scope. </title>
+<script language="vbs">
+sub proc1()
+	dim x
+	x = 20
+	document.write("In proc1, x = " & x)
+end sub
+sub proc2()
+	document.write("In proc2, x = " & x)
+end sub
+
+</script>
+</HEAD>
+<BODY>
+<script language="vbs">
+dim x
+x = "hello"
+document.write("At script level, x = " & x)
+document.write("<BR>")
+call proc1
+document.write("<BR>")
+call proc2
+</script>
+</BODY>
+</HTML>
