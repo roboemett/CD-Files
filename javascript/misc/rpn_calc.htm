@@ -1,0 +1,172 @@
+<html>
+<head>
+   <title>RPN Calculator</title>
+   <meta name="Author" content="Peter G. Aitken">
+   <meta name="GENERATOR" content="Mozilla/2.0GoldB2 (Win32)">
+<script>
+<!-- hide script from old browsers.
+function initArray(ArrayLength)
+	{
+      this.length = ArrayLength
+      for (var i = 0; i < this.length; i++)
+		this[i+1] = 0
+    }
+function AddDigit(Digit)
+	{
+	if (NewNum)
+		{
+        document.forms[0].display.value = Digit
+		HasDecimal = false
+		NewNum = false
+		}
+	else
+		document.forms[0].display.value += Digit
+	}
+function AddDecimal()
+	{
+	if (NewNum)
+		{
+        document.forms[0].display.value = "0."
+		HasDecimal = true
+		NewNum = false
+		}
+    else if (!HasDecimal)
+		{
+        HasDecimal = true
+		document.forms[0].display.value += "."
+		}
+	}
+function Clear()
+	{
+	document.forms[0].display.value = ""
+	HasDecimal = false
+	}
+function EnterKey()
+	{
+	if (document.forms[0].display.value != "")
+		{
+		//Put display value on the stack.
+		PutOnStack(document.forms[0].display.value)
+		//Add decimal point if needed.
+		if (!HasDecimal)
+	         document.forms[0].display.value += "."
+		//Add zeros.
+		var x = document.forms[0].display.value.length
+		for (var i = 0; i < 16 - x; i++)
+	        document.forms[0].display.value += "0"
+		//Set flags.
+        NewNum = true
+		HasDecimal = false
+		}
+	}
+function ChangeSign()
+	{
+	var temp
+	temp = document.forms[0].display.value
+	if (temp.charAt(0) == "-")
+		document.forms[0].display.value = temp.substring(1, temp.length)
+	else
+	    document.forms[0].display.value = "-" + temp
+	}
+function Calc(op)
+	{
+	var result
+	//Need at least one value on the stack.
+	if (StackPtr > -1)
+		{
+		if (op == '+')
+			{
+			result = eval(Stack[StackPtr])
+			result += eval(document.forms[0].display.value)
+            document.forms[0].display.value = result
+			}
+		if (op == '-')
+			{
+            result = eval(Stack[StackPtr])
+			result -= eval(document.forms[0].display.value)
+            document.forms[0].display.value = result
+			}
+        if (op == 'x')
+			{
+            result = eval(Stack[StackPtr])
+			result *= eval(document.forms[0].display.value)
+            document.forms[0].display.value = result
+			}
+         if (op == '/')
+			{
+            result = eval(Stack[StackPtr])
+			var y = eval(document.forms[0].display.value)
+			if (y != 0)
+				{
+				result /= eval(document.forms[0].display.value)
+                document.forms[0].display.value = result
+				}
+			else
+				alert("Cannot divide by zero!")
+			}
+        NewNum = true
+		HasDecimal = false
+		PutOnStack(result)
+	   }
+   }
+function PutOnStack(value)
+	{
+	//Puts a value on the stack, checking for overflow.
+	if (StackPtr >= 39)
+		alert("Stack Overflow")
+	else
+		Stack[++StackPtr] = value
+	}
+// end hiding. -->
+</script>
+</head>
+<body text="#000000" bgcolor="#D9DAD8" link="#0000EE" vlink="#551A8B" alink="#FF0000" background="gryblue1.jpg">
+
+<h1><font COLOR="#FFFFFF">RPN&nbsp;Calculator</font></h1>
+
+<p><font COLOR="#FFFFFF"><font SIZE=+1>Calculators that use reverse Polish
+notation are favored by most scientists and engineers over the more common
+algebraic type of calculator. Their operation is based on the concept of
+a last-in, first-out stack. In an algrbraic calculator you press the keys
+corresponding to the way you would write down the problem. For example
+to multiple 2 times 4 then add 3, you would press</font></font></p>
+
+<p><font COLOR="#FFFFFF"><font SIZE=+1>2 x 4 + 3 =</font></font></p>
+
+<p><font COLOR="#FFFFFF"><font SIZE=+1>An RPN calculator lacks an &quot;equals&quot;
+key, having an Enter key instead which serves to place the entered number
+on the stack. The same problem would be keyed as follows:</font></font></p>
+
+<p><font COLOR="#FFFFFF"><font SIZE=+1>2 ENTER 4 x 3 +</font></font></p>
+
+<p><font COLOR="#FFFFFF"><font SIZE=+1>Pressing Enter places the number
+in the display on the top of the stack. Pressing an operator key performs
+the specified operation between the number in the display and the number
+on the top of the stack; the result of the calculation is placed in the
+display and on the stack. Here it is, folks. I've made no effort to &quot;pretty
+up&quot; the calculator, but it works just fine. </font></font></p>
+
+<p>
+<hr size=4 noshade width="100%" ></p>
+
+<center><p><form>
+<br><script><!-- hide script
+var HasDecimal = false
+//Variable to serve as stack pointer.
+var StackPtr = -1
+//Flag for new number entry.
+var NewNum = true
+//Initialize a 40 element array for the stack.
+var Stack = new initArray(40)
+// end hiding--></script><input type="text" name="display" value="" length=20>
+<br><input type="button" name="7" value="  7  " onClick = "AddDigit(7)"><input type="button" name="8" value="  8  " onClick = "AddDigit(8)"><input type="button" name="9" value="  9  " onClick = "AddDigit(9)"><input type="button" name="/" value="  /  " onClick = "Calc('/')">
+<br><input type="button" name="4" value="  4  "onClick = "AddDigit(4)"><input type="button" name="5" value="  5  " onClick = "AddDigit(5)"><input type="button" name="6" value="  6  " onClick = "AddDigit(6)"><input type="button" name="x" value="  x " onClick = "Calc('x')">
+<br><input type="button" name="1" value="  1  "onClick = "AddDigit(1)"><input type="button" name="2" value="  2  " onClick = "AddDigit(2)"><input type="button" name="3" value="  3  " onClick = "AddDigit(3)"><input type="button" name="-" value="  -  " onClick = "Calc('-')">
+<br><input type="button" name="0" value="  0  " onClick = "AddDigit(0)"><input type="button" name="." value="   .  " onClick = "AddDecimal()"><input type="button" name="clear" value="  C  " onClick = "Clear()"><input type="button" name="+" value="  + " onClick = "Calc('+')">
+<br><input type="button" name="Enter" value="    ENTER    " onClick = "EnterKey()"><input type="button" name="Sign" value=" +/- " onClick = "ChangeSign()"></form></p></center>
+
+<center><p>
+<hr size=4 noshade width="100%" ></p></center>
+
+</body>
+</html>

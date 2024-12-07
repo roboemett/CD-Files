@@ -1,0 +1,39 @@
+<html>
+<head>
+   <title>Clock</title>
+<script><!--
+
+function DisplayTime ()
+	{
+	var now = new Date()
+    var hours = now.getHours()
+    var mins = now.getMinutes()
+    var secs = now.getSeconds()
+    var TheTime = "" + ((hours >12) ? hours -12 :hours)
+    TheTime += ((mins < 10) ? ":0" : ":") + mins
+    TheTime += ((secs < 10) ? ":0" : ":") + secs
+    TheTime += (hours < 12) ? " AM" : " PM"
+    document.clock.display.value = TheTime
+    var theTimer = setTimeout("DisplayTime()",1000)
+    }
+// end hiding. -->
+</script>
+</head>
+<body>
+<br>
+<script>
+var today = new Date()
+var hour = today.getHours()
+
+document.writeln("<FORM NAME='clock' onSubmit='0'>")
+
+
+//A text box for the time display.
+document.writeln("<INPUT TYPE='text' NAME='display' SIZE=12 VALUE=''>")
+
+//Start the timer running.
+DisplayTime()
+
+<!-- end hiding  --></script>
+</body>
+</html>

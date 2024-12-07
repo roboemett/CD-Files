@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+<script>
+function textLength(buf, max, min)
+	{
+	//Returns true if the length of the text in buf
+	//is between max and min. Returns false otherwise
+	if (buf.length <= max && buf.length >= min)
+		return true
+	else
+		return false
+	}
+
+function isZipcode(val)
+    {
+    //Returns true if val is a 5 digit ZIP code
+    //or a 9 digit ZIP code in the format
+    // xxxxx-xxxx. Returns false otherwise.
+	var len
+	if (val.length == 5)
+		len = 5
+	else if (val.length == 10)
+		len = 10
+	else
+		return false
+
+	var test = "0123456789"
+
+	//First 5 characters must all be digits.
+	for (var i = 0; i < 5; i++)
+		{
+		if (test.indexOf(val.charAt(i)) < 0)
+			return false
+		}
+
+	//If a 5 digit ZIP we're done.
+	if (len == 5)
+		return true
+
+	//The sixth character must be "-".
+	if (val.charAt(5) != '-')
+		return false
+
+	//The last 4 characters must be digits.
+    for (var i = 6; i < 10; i++)
+		{
+		if (test.indexOf(val.charAt(i)) < 0)
+			return false
+		}
+	
+    return true
+    }
+
+function isPhonenumber(val)
+    {
+    //Returns true if val is a phone number in the
+    //format xxx-xxx-xxxx. Returns false otherwise.
+	if (val.length != 12)
+        return false
+    //Check first three chars. Since no area codes start with zero
+    // the eval of the first three chars must be >= 100.
+    if (eval(val.substring(0,3)) < 100)
+		return false
+	//The 4th character should be a "-"
+    if (val.charAt(3) != "-")
+        return false
+    //The 5th thru 7th characters should evaluate to a
+    //number >= 100.
+    if (eval(val.substring(4,7)) < 100)
+        return false
+    //The 8th character should be a "-".
+    if (val.charAt(7) != "-")
+        return false
+    //The last 4 characters are tricky because we cannot assume
+    //there is not one or more leading zeros. Instead we see if
+    //each of the 4 characters is present is a test string
+    //consisting of the ten digits.
+    var test = "0123456789"
+    for (var i = 8; i < 12; i++)
+        if (test.indexOf(val.charAt(i)) == -1)
+            return false
+
+    //All tests passed, so...
+    return true
+    }
+
+function isBetween(val, limit1, limit2)
+    {
+    //Returns true if val is between limit1 and
+    //limit2, or equal to either. Returns false
+    //otherwise.
+    var max = (limit1 > limit2) ? limit1 : limit2
+    var min = (limit1 < limit2) ? limit1 : limit2
+
+    if (val == max || val == min)
+        return true
+    if (val > min && val < max)
+        return true
+    return false
+    }
+
+function isNumber(val)
+    {
+    //Returns true if val is a number defined as
+    //   having an optional leading + or -.
+    //   having at most 1 decimal point.
+    //   otherwise containing only the characters 0-9.
+	var test1 = ".+-0123456789"
+	var test2 = ".0123456789"
+	var c
+	var decimal = false
+	//The first character can be + - . or a digit.
+	c = test1.indexOf(val.charAt(0))
+    //Was it a decimal?
+	if (c == 0)
+	    decimal = true
+	else if (c < 1)
+		return false
+
+	//Remaining characters can be only . or a digit, but only one decimal.
+	for (var i = 1; i < val.length; i++)
+		{
+		//alert(val.charAt(i))
+		c = test2.indexOf(val.charAt(i))
+		//alert(c)
+		if (c < 0)
+			return false
+		else
+			if (c == 0)
+				{
+				if (decimal)		// Second decimal.
+					return false
+				else
+					decimal = true
+				}
+		}
+	return true
+    }
+
+//*************************************************
+
+function checkPhone(val)
+    {
+    if (!isPhonenumber(val))
+        {
+		var msg = "Please enter a phone number in the xxx-xxx-xxxx format"
+		alert(msg)
+        document.form1.phone.focus()
+        }
+    }
+
+function checkNumber(val)
+	{
+	if (!isNumber(val))
+		{
+    	var msg = "A number, puh-leeese!"
+		alert(msg)
+        document.form1.number.focus()
+    	}
+	}
+
+function checkZip(val)
+	{
+	if (!isZipcode(val))
+		{
+    	var msg = "That's not a valid ZIP code, knucklehead!"
+		alert(msg)
+        document.form1.zip.focus()
+    	}
+}
+
+function checkBetween(val, max, min)
+	{
+	if (!isBetween(val, max, min))
+		{var msg = "Did you flunk math? Try again!"
+		alert(msg)
+        document.form1.between.focus()
+		}
+	}
+
+function checkCuisine()
+	{
+	//Make sure an item is selected. We do this by going
+	//thru the options array. If any option has its
+	//selected property true, then an item is selected.
+	var ok = false
+	for (var i = 0; i < document.form1.cuisine.length; i++)
+		{
+		if (document.form1.cuisine.options[i].selected)
+			ok = true
+		}
+	if (!ok)
+		{
+		var msg = "What's the matter, not hungry? Please select one!"
+		alert(msg)
+		document.form1.cuisine.focus()
+		}
+	 return ok
+	}
+
+function checkLength(text, max, min)
+	{
+	if (!textLength(text, max, min))
+		{
+        var msg = "Forget how to count? Try again, please!"
+		alert(msg)
+		document.form1.length.focus()
+		}
+	}
+</script>
+</HEAD>
+<BODY>
+<FORM name="form1">
+<H2>Data Validation Demo</H2>
+<HR>
+Please select your favorite cuisine:
+<SELECT name="cuisine" size="4" onBlur="checkCuisine()">
+<OPTION value="Italian">Italian
+<OPTION value="Chinese">Chinese
+<OPTION value="French">French
+<OPTION value="Indian">Indian
+<OPTION value="Mexican">Mexican
+<OPTION value="German">German
+</SELECT><P>
+Enter your phone number in the format xxx-xxx-xxxx:
+<INPUT type="text" name="phone" value="" onBlur="checkPhone(this.value)">
+<P>
+Enter a number, any number (but numbers only!):
+<INPUT type="text" name="number" value="" onBlur="checkNumber(this.value)"><P>
+Enter a 5 digit or 9 digit (xxxxx-xxxx) ZIP code:
+<INPUT type="text" name="zip" value="" onBlur="checkZip(this.value)"><P>
+Enter a value between 10 and 100:
+<INPUT type="text" name="between" value="" onBlur="checkBetween(this.value, 10, 100)"><P>
+Enter some text between 5 and 10 characters long:
+<INPUT type="text" name="length" value="" onBlur="checkLength(this.value, 10, 5)"><P>
+</FORM>
+<script>
+document.form1.cuisine.focus()
+</script>
+</BODY>
+</HTML>

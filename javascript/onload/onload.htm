@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<TITLE>Using onLoad</TITLE>
+<SCRIPT>
+function writeText()
+    {
+    parent.doc1.document.write("Document 1")
+    parent.doc2.document.write("Document 2")
+    parent.doc1.document.close()
+    parent.doc2.document.close()
+    }
+</SCRIPT>
+</HEAD>
+
+<FRAMESET ROWS="50%,50%" onLoad="writeText()" >
+    <FRAME SRC="blank1.htm" NAME="doc1">
+    <FRAME SRC="blank2.htm" NAME="doc2">
+</FRAMESET>
+
+<NOFRAME>
+This demo requires Netscape 2.x.
+</NOFRAME>
+
+</HTML>
+

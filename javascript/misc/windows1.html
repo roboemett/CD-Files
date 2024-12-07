@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<TITLE>Window 1</TITLE>
+</HEAD>
+<BODY>
+<SCRIPT>
+window2=open("windows2.html","window2","width=300,height=100")
+</SCRIPT>
+<FORM NAME="form1">
+<P><INPUT TYPE="button" VALUE="Open a message window"
+   onClick="window3=window.open('','messageWindow','width=175,height=50')">
+<P><INPUT TYPE="button" VALUE="Display a message"
+   onClick="window3.document.writeln('Hi! I am a message.');window3.document.close()">
+<P><INPUT TYPE="button" VALUE="Close the message window"
+   onClick="window3.close()">
+<P><INPUT TYPE="button" VALUE="Close the second window"
+   onClick="window2.close()">
+</FORM>
+</BODY>
+</HTML>

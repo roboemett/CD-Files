@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<script>
+function isZipcode(val)
+    {
+    //Returns true if val is a 5 digit ZIP code
+    //or a 9 digit ZIP code in the format
+    // xxxxx-xxxx. Returns false otherwise.
+
+    return true
+    }
+
+function isPhonenumber(val)
+    {
+    //Returns true if val is a phone number in the
+    //format xxx-xxx-xxxx. Returns false otherwise.
+    if (val.length != 12)
+        return false
+    //Check first three chars. Since no area codes start with zero
+    // the eval of the first three chars must be >= 100.
+    if (eval(val.substring(0,2)) < 100)
+        return false
+    //The 4th character should be a "-"
+    if (val.charAt(3) != "-")
+        return false
+    //The 5th thru 7th characters should evaluate to a
+    //number >= 100.
+    if (eval(val.substring(4,6)) < 100)
+        return false
+    //The 8th character should be a "-".
+    if (val.charAt(7) != "-")
+        return false
+    //The last 4 characters are tricky because we cannot assume
+    //there is not one or more leading zeros. Instead we see if
+    //each of the 4 characters is present is a test string
+    //consisting of the ten digits.
+    var test = "0123456789"
+    for (var i = 8; i < 12; i++)
+        if (test.indexOf(val.charAt(i)) == -1)
+            return false
+
+    //All tests passed, so...
+    return true
+    }
+
+function isBetween(val, limit1, limit2)
+    {
+    //Returns true if val is between limit1 and
+    //limit2, or equal to either. Returns false
+    //otherwise.
+    var max = (limit1 > limit2) ? limit1 : limit2
+    var min = (limit1 < limit2) ? limit1 : limit2
+
+    if (val == max || val == min)
+        return true
+    if (val > min && val < max)
+        return true
+    return false
+    }
+
+function isNumber(val)
+    {
+    //Returns true if val is a number defined as
+    //   having an optional leading + or -.
+    //   having at most 1 decimal point.
+    //   otherwise containing only the characters 0-9.
+    return true
+    }
+function makeProper(val)
+    {
+    //Returns val with "proper" capitalization.
+    //The first letter of each word uppercase,
+    //all other letters lowercase.
+    return true
+    }
+
+//*************************************************
+
+function checkPhone(val)
+    {
+    if (!isPhonenumber(val))
+        {
+        var msg = "Please enter a phone number in the xxx-xxx-xxxx format"
+        document.form1.phone.focus()
+        }
+    }
+</script>
+</HEAD>
+<BODY>
+<script>
+</script>
+<FORM name="form1">
+Please select your favorite cuisine:
+<SELECT name="cuisine" size="4">
+<OPTION value="Italian">Italian
+<OPTION value="Chinese">Chinese
+<OPTION value="French">French
+<OPTION value="Indian">Indian
+<OPTION value="Mexican">Mexican
+<OPTION value="German">German
+</SELECT><P>
+<INPUT type="button" name="button1" value="click here" onClick="alert(eval('b'))">
+<P>
+Enter a your phone number in the format xxx-xxx-xxxx:
+<INPUT type="text" name="phone" value="" onBlur="checkPhone(this.value)">
+</FORM>
+</BODY>
+</HTML>

@@ -1,0 +1,42 @@
+<HTML>
+<TITLE>Data verification with onBlur and onChange</TITLE>
+<HEAD>
+<SCRIPT>
+function NotBlank(obj)
+	{
+	// Verifies that the value property of obj is not
+	//blank. If it is blank displays an alert and sets
+	//focus back to the object.
+	if (obj.value == "")
+		{
+		alert("This field cannot be left blank.")
+		obj.focus()
+		}
+	}
+</SCRIPT>
+</HEAD>
+<BODY>
+<SCRIPT>
+var MusicPref = ""
+</SCRIPT>
+<FORM>
+Please enter your name:
+<INPUT type="text" name="mytext" size="20" onBlur="NotBlank(this)"><p>
+Tell us about yourself:
+<TEXTAREA NAME="mytextarea" ROWS="4" COLS="50" onBlur="NotBlank(this)"></TEXTAREA><P>
+What is your favorite type of music?
+<SELECT SIZE="3" NAME="myselect" onChange="MusicPref=this.options[this.selectedIndex].text">
+<OPTION>Early jazz
+<OPTION>Modern jazz
+<OPTION>Baroque
+<OPTION>Classical
+<OPTION>Romantic
+<OPTION>Blues
+<OPTION>Rock and roll
+</SELECT>
+<P><P>
+<INPUT TYPE="button" VALUE="Display Music preference" onClick="alert(MusicPref)">
+</FORM>
+</BODY>
+</HTML>
+

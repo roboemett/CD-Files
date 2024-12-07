@@ -1,0 +1,13 @@
+<HTML>
+<HEAD>
+<script>
+</script>
+</HEAD>
+<BODY>
+<script>
+var x = prompt("What now?", "hi")
+document.write(x)
+document.close()
+</script>
+</BODY>
+</HTML>

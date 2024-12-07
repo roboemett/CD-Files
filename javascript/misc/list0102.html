@@ -1,0 +1,38 @@
+<html>
+<head>
+   <title>My First JavaScript Program</title>
+   <meta name="GENERATOR" content="Mozilla/2.0GoldB1 (Win32)">
+<script><!--
+function CheckZip(form, entry)
+        {
+        if (entry.length != 5)
+            {
+            alert("A ZIP code must be 5 numbers!!")
+            form.zip.focus()
+            }
+        else
+            {
+            alert("My, what a nice ZIP code!")
+            }
+        }
+//-->
+</script>
+</head>
+<body>
+<form  name="TestForm">
+<hr>
+<h2>Input validation</h2>
+<br>Here's a ZIP code field. Try entering an improper ZIP, such as four
+or six numbers. Then move the focus off the field by clicking elsewhere
+in the document.
+<br>
+<br><b>ZIP code:</b>
+<input  TYPE="text" VALUE="" NAME="zip" SIZE=10 onBlur="CheckZip(this.form, this.value)"></input>
+<br>
+<br>
+<hr>
+</form>
+</p>
+</body>
+</html>
+

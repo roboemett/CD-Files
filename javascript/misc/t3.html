@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<script language="javascript">
+function ReviewChoices()
+	{
+	var i, s
+	s = "You selected "
+	for (i = 0; i < document.form1.myselect.length; i++)
+		{
+		if (document.form1.myselect.options[i].selected)
+			{
+			s += document.form1.myselect.options[i].text
+			s += ", "
+			}
+	document.form1.output.value = s
+		}
+	}
+</script>
+</HEAD>
+<BODY>
+<form name="form1">
+Hold down Ctrl and click to select the desired food items: <p>
+<SELECT NAME="myselect" SIZE="8" MULTIPLE >
+<OPTION> Onion Soup													
+<OPTION> Shrimp Cocktail
+<OPTION> Country Pate
+<OPTION> Breast of Chicken
+<OPTION> Porterhouse Steak
+<OPTION> Sauteed Vegetables
+<OPTION> Vanilla Ice Cream
+<OPTION> Fruit Cocktail
+</SELECT>
+<p>Then click the button to review your choices.
+<INPUT TYPE="button" NAME="review" VALUE="Review Choices" onClick="ReviewChoices()"><br>
+<TEXTAREA NAME="output" WRAP="virtual" ROWS=2 COLS=40> </TEXTAREA>
+</form>
+</BODY>
+</HTML>

@@ -1,0 +1,111 @@
+<html>
+<head>
+   <title>Clock and Calendar</title>
+   <meta name="GENERATOR" content="Mozilla/2.0GoldB2 (Win32)">
+   <meta name="Author" content="Peter Aitken">
+   <meta name="Description" content="Displays a clock and calendar, with today's date highlighted.">
+<script><!--
+
+function DisplayTime ()
+	{
+	var now = new Date()
+    var hours = now.getHours()
+    var mins = now.getMinutes()
+    var secs = now.getSeconds()
+    var TheTime = "" + ((hours >12) ? hours -12 :hours)
+    TheTime += ((mins < 10) ? ":0" : ":") + mins
+    TheTime += ((secs < 10) ? ":0" : ":") + secs
+    TheTime += (hours < 12) ? " AM" : " PM"
+    document.clock.display.value = TheTime
+    var theTimer = setTimeout("DisplayTime()",1000)
+    }
+// end hiding. -->
+</script>
+</head>
+<body text="#0000FF" bgcolor="#BACBE2" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<br><script>var today = new Date()
+var hour = today.getHours()
+
+document.writeln("<CENTER><H2>")
+document.write("<FONT COLOR=000000>")
+document.write("Have you been hacking away at JavaScript so intently ")
+document.write("that you don't know what date it is, let alone the time? ")
+document.write("Well, here's a reminder!</H2></CENTER>")
+document.write("</FONT>")
+document.writeln("<FORM NAME='clock' onSubmit='0'>")
+document.writeln("<FONT SIZE+=4>")
+document.write("<HR>")
+
+//String of month names alloting 9 characters per name.
+var monthNames = " January February   March    April     May     June     July     "
+monthNames += "August  September  October  November December"
+
+var today = new Date()
+var year = today.getYear() + 1900
+var thisDay = today.getDate()
+
+//Figure out how many days in the current month.
+var ndays
+var m = today.getMonth()
+if (m == 0 || m == 2 || m == 4 || m == 6 || m == 7 || m == 9 || m == 11)
+        ndays = 31
+else if (m == 3 || m == 5 || m == 8 || m == 10)
+        ndays = 30
+// If we reach here must be February, so we do leap year calculation.
+else if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+        ndays = 29
+else
+    ndays = 28
+
+//Figure out which day of the week the first
+//of the month fell on.
+var day1 = today
+day1.setDate(1)
+FirstDayOfMonth = day1.getDay()
+
+document.writeln("<CENTER>")
+document.write("<TABLE Border = '2' Cellspacing = '5' CellPadding = '1'>")
+document.write("<TR><TH COLSPAN=7>")
+document.write(monthNames.substring(today.getMonth() * 9,(today.getMonth() + 1) * 9))
+document.write(year)
+document.write("<TR><TH>Sun<TH>Mon<TH>Tue<TH>Wed<TH>Thu<TH>Fri<TH>Sat")
+var col = 0
+
+//If the first day of the month is not a Sunday,
+//we need to put some blanks in the first row.
+
+document.write("<TR>")
+for (i = 0; i < FirstDayOfMonth; i++)
+        {
+        document.write("<TD><FONT SIZE+=4></FONT>")
+        col++
+        }
+for (i = 1; i <= ndays; i++)
+   {
+   document.write("<TD Align='Center' Valign='middle'>")
+   if (i == thisDay)
+       document.write("<FONT COLOR=\"#FF0000\" SIZE+=4>")
+   document.write(i)
+   if (i == thisDay)
+       document.write("</FONT>")
+   col++
+   if (col == 7)
+       {
+       document.write("<TR>") // start a new row
+       col = 0
+       }
+   }
+document.write("</TABLE>")
+
+//Now a text box for the time display.
+document.writeln("<INPUT TYPE='text' NAME='display' SIZE=12 VALUE=''>")
+
+document.write("</CENTER></FONT><HR>")
+
+//Start the timer running.      
+DisplayTime()
+
+<!-- end hiding  --></script>
+</body>
+</html>

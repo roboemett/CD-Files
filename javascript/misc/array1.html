@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<SCRIPT>
+function initArray() {
+      this.length = initArray.arguments.length
+      for (var i = 0; i < this.length; i++)
+		this[i+1] = initArray.arguments[i]
+	  }
+</SCRIPT>
+</HEAD>
+<BODY>
+<SCRIPT>
+var myArray = new initArray("The", "Coriolis", "Group")
+for (var i = 0; i < 4; i++)
+	document.writeln(myArray[i])
+document.write("<br>")
+myArray[2] = "Wild and Crazy"
+for (var i = 1; i < 4; i++)
+	document.writeln(myArray[i])
+document.close()
+</SCRIPT>
+</BODY>
+</HTML>

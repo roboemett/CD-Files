@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<SCRIPT>
+
+function initArray(ArrayLength)
+    {
+    this.length = ArrayLength
+    for (var i = 0; i < this.length; i++)
+        this[i+1] = 0
+    }
+
+function info(msg)
+        {
+        ClearInfoWindow()
+        parent.infowindow.document.write(msg)
+        parent.infowindow.document.close()
+        }
+
+function ClearInfoWindow()
+	{
+	parent.infowindow.document.clear()
+        parent.infowindow.document.write("")
+	parent.infowindow.document.close()
+    }
+</SCRIPT>
+</HEAD>
+<BODY>
+<SCRIPT>
+// Initialize an array to hold message strings.
+var msg = new initArray(4)
+msg[1] = "If you don't know what to enter here I can't help you!"
+msg[2] = "Your gross income is the total amount of your "
+msg[2] += "paycheck before deductions for tax, medical "
+msg[2] += "insurance, etc."
+msg[3] = "Your occupation is what you do to support yourself now, "
+msg[3] += "not what you hope to become someday. If you hope to be "
+msg[3] += "a writer but are currently working as a waiter, then "
+msg[3] += "you should enter waiter here."
+</SCRIPT>
+<H1>Using the onFocus event</H1><BR>
+This is a test document. It contains a form with several data
+fields for the user to fill in. When the focus is moved to
+a field the small frame displays information about what the
+user is supposed to enter.<p><p>
+<FORM>
+Enter your name:
+<INPUT TYPE="text" NAME="name" VALUE="" onFocus="info(msg[1])">
+<p>
+Enter your gross income:
+<INPUT TYPE="text" NAME="income" VALUE="" onFocus="info(msg[2])">
+<p>
+Enter your occupation:
+<INPUT TYPE="text" NAME="occupation" VALUE="" onFocus="info(msg[3])">
+<p>
+</FORM>
+</BODY>
+</HTML>

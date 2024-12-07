@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<script language="javascript">
+function Reverse(obj)
+	{
+	var t1, t2 = ""
+	t1 = obj.value
+	for (var count = t1.length - 1 ; count >= 0 ;  count--)
+		t2 += t1.charAt(count)
+	obj.value = t2.toUpperCase()
+	}
+</script>
+</HEAD>
+<BODY>
+<form NAME="form1">
+<H2>JavaScript Example</H2>
+Click on this box then type in your name:<br><br>
+<input type="text" name="text1" length="40" value="" ><br><br>
+Now, click this button and see what happens:
+<input type="button" name="button1" value="Reverse!" onclick="Reverse(document.form1.text1)"><br>
+</form>
+</BODY>
+</HTML>
+

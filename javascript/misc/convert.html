@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+
+<TITLE>Voth Communications - Javascript Examples</TITLE>
+<LINK REV="made" HREF="mailto:vothcom@pobox.com">
+
+<SCRIPT LANGUAGE="LiveScript">
+<!-- hide this script tag's contents from old browsers
+
+// keep track of whether we just computed display.value
+
+var computed = false
+var destination = "http://www.seercom.com/vothcom/"
+var decimal = 0
+
+function convert (entryform, from, to)
+
+{
+	convertfrom = from.selectedIndex
+	convertto = to.selectedIndex
+	entryform.display.value = (entryform.input.value * from[convertfrom].value / to[convertto].value )
+}
+
+function addChar (input, character)
+{
+
+	if((character=='.' && decimal=="0") || character!='.')
+
+	{
+		(input.value == "" || input.value == "0") ? input.value = character : input.value += character
+
+		convert(input.form,input.form.measure1,input.form.measure2)
+	
+		computed = true	
+
+		if (character=='.')
+		{
+			decimal=1
+		}	
+	}
+}
+
+function openVothcom()
+{
+	window.open("","Display window","toolbar=no,directories=no,menubar=no");
+}
+
+function clear (form)
+{
+	form.input.value = 0
+	form.display.value = 0
+	decimal=0
+}
+
+function changeBackground(hexNumber)
+{
+	document.bgColor=hexNumber
+}
+
+<!-- done hiding from old browsers -->
+</SCRIPT>	
+
+
+</HEAD>
+<BODY>
+
+<H1 ALIGN="CENTER">Javascript Page</H1>
+
+<P>The following are a couple examples that make use of Netscape's new scripting language 'Javascript' available in Netscape 2.0. </P> 
+
+<P><EM>The following is for demonstration purposes and no guarantees regarding the accuracy of the calculations are made.</EM></P>
+
+<H2>Metric Converter</H2>
+
+<FORM METHOD="POST" NAME="calculator">
+<TABLE BORDER="3" CELLPADDING="3">
+<TR><TH>Convert from:</TH>
+<TD><INPUT SIZE="15" NAME="input" ONCHANGE="convert(this.form,form.measure1, form.measure2)"></TD>
+<TD>
+<SELECT NAME="measure1" ONCHANGE="convert(this.form,this, form.measure2)">
+<OPTION VALUE="0.01" SELECTED>cm
+<OPTION VALUE="1">m
+<OPTION VALUE="1000">km
+<OPTION VALUE="0.3048">feet
+<OPTION VALUE="0.9144">yds
+<OPTION VALUE="1610">mi
+</SELECT>
+</TD>
+<TR><TH>Convert to:</TH>
+<TD><INPUT SIZE="15" NAME="display"></TD>
+<TD>
+<SELECT NAME="measure2" ONCHANGE="convert(this.form,form.measure1, this)">
+<OPTION VALUE="0.01">cm
+<OPTION VALUE="1">m
+<OPTION VALUE="1000">km
+<OPTION VALUE="0.3048" SELECTED>feet
+<OPTION VALUE="0.9144">yds
+<OPTION VALUE="1610">mi
+</SELECT>
+</TD>
+
+</TABLE>
+<TABLE BORDER="3" CELLPADDING="3">
+
+<TR><TD><INPUT TYPE="button" VALUE="7" ONCLICK="addChar(this.form.input,'7')"></TD>
+<TD><INPUT TYPE="button" VALUE="8" ONCLICK="addChar(this.form.input,'8')"></TD>
+<TD><INPUT TYPE="button" VALUE="9" ONCLICK="addChar(this.form.input,'9')"></TD>
+
+<TR><TD><INPUT TYPE="button" VALUE="4" ONCLICK="addChar(this.form.input,'4')"></TD>
+<TD><INPUT TYPE="button" VALUE="5" ONCLICK="addChar(this.form.input,'5')"></TD>
+<TD><INPUT TYPE="button" VALUE="6" ONCLICK="addChar(this.form.input,'6')"></TD>
+
+<TR><TD><INPUT TYPE="button" VALUE="1" ONCLICK="addChar(this.form.input,'1')"></TD>
+<TD><INPUT TYPE="button" VALUE="2" ONCLICK="addChar(this.form.input,'2')"></TD>
+<TD><INPUT TYPE="button" VALUE="3" ONCLICK="addChar(this.form.input,'3')"></TD>
+
+<TR><TD><INPUT TYPE="button" VALUE="0" ONCLICK="addChar(this.form.input,'0')"></TD>
+<TD><INPUT TYPE="button" VALUE="." ONCLICK="addChar(this.form.input,'.')"></TD>
+<TD ROWSPAN=""><INPUT TYPE="button" VALUE="C" ONCLICK="clear(this.form)"><TD>
+</TABLE>
+
+</FORM>
+</BODY>
+</HTML>
