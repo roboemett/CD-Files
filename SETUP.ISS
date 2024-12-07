@@ -1,0 +1,34 @@
+[InstallSHIELD Silent]
+Version=v3.00.00
+File=Response File
+[DlgOrder]
+Dlg0=SdBitmap-0
+Dlg1=Welcome-0
+Dlg2=SdShowInfoList-0
+Dlg3=SdRegisterUser-0
+Dlg4=SdAskDestPath-0
+Dlg5=SdSetupType-0
+Dlg6=SdSelectFolder-0
+Dlg7=SdStartCopy-0
+Count=8
+[SdBitmap-0]
+Result=1
+[Welcome-0]
+Result=1
+[SdShowInfoList-0]
+Result=1
+[SdRegisterUser-0]
+Result=1
+szName=Name
+szCompany=Company
+[SdAskDestPath-0]
+Result=1
+szDir=<ProgramFilesDir>\Coriolis\Java&VBScript
+[SdSetupType-0]
+Result=301
+szDir=<ProgramFilesDir>\Coriolis\Java&VBScript
+[SdSelectFolder-0]
+Result=1
+szFolder=Coriolis
+[SdStartCopy-0]
+Result=1
