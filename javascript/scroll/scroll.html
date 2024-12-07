@@ -1,0 +1,112 @@
+Path: news.duke.edu!news.mathworks.com!news2.cais.net!news.cais.net!newsfeed.internetmci.com!in1.uu.net!news-in.tiac.net!news-central.tiac.net!jbrochu.tiac.net!user
+From: jbrochu@tiac.net (John Brochu)
+Newsgroups: comp.lang.javascript
+Subject: A Better Scroller - JS script
+Date: 9 May 1996 18:33:55 GMT
+Organization: The Internet Access Company, Inc.
+Lines: 102
+Message-ID: <jbrochu-0905961433300001@jbrochu.tiac.net>
+NNTP-Posting-Host: jbrochu.tiac.net
+
+A few people have been asking for a JS script to scroll a message only
+once or a specified number of times. With the buggy and poorly-written
+scrollIt script currently propagating throughout the web, I thought it was
+time for a replacement. I added some comments to my JavaScript scroller,
+and added some options to easily control repeat and delay times, so
+hopefully this will fill the need.
+
+If anyone has any comments on it, or can improve it further, by all means
+speak up. Maybe we can start to get rid of those memory and time hogging
+scroller scripts out there.
+
+-----------
+
+<SCRIPT LANGUAGE="JavaScript"><!-- Insert this script in the HEADing of
+your page.
+
+// A BETTER SCROLLER - JavaScript Message Scroller
+//  John Brochu (jbrochu@tiac.net)
+
+// Feel free to use this script in your pages, but please include the
+above lines.
+// To start this script, just include the statement [ONLOAD="startMessage()"]
+// (without the brackets) in your BODY statement.
+
+//  This is meant to replace all those poorly-written, memory-hogging
+//  scroller scripts out there clogging up the net. It is optimized
+//  for speed and efficiency, as well as easy customization.
+
+// The following lines should contain your message. There seems to be an
+assignment
+// limit of around 242 characters per string. So if your message is longer than
+// that, you will need to split it into separate strings, and add
+(concatenate) them
+// to form one long string. You can add more strings if you have a longer
+message,
+// just make sure the "msg =" line includes all your strings.
+
+var m1 = "Your message goes here. ";
+var m2 = "Your message goes here. ";
+var m3 = "Your message goes here. ";
+var msg = m1+m2+m3;
+
+// This is the pad string that positions your message in the status line.
+The length
+// of this string determines the initial starting position of your message. It
+// should be large enough to begin the message off-screen, so that it
+scrolls into
+// view, but not large enough to cause a long delay before the user starts
+to see
+// it appear. You should change the "pad = " line, not the pad25 string.
+
+var pad25 = "                         ";
+var pad = pad25+pad25+pad25+pad25+pad25+pad25;
+
+// The following are expressed in milliseconds (thousandths of a second)
+var scrollDelay = 100;  // Controls the scrolling speed.
+var initialDelay = 500; // Delay before beginning scroll after loading document.
+var repeatDelay = 500;  // Delay before repeating message.
+
+var repeatCount = 0;    // Times to repeat. (0 for one pass, -1 for continuous)
+
+var scrollOffset = pad.length;
+var offset;
+var msgTimer = null;    
+
+function startMessage()
+{
+    offset = scrollOffset;
+    msgTimer = window.setTimeout("scrollMessage()", initialDelay);
+}
+
+function scrollMessage()
+{
+    if ((offset <= scrollOffset) && (offset > 0)) {
+        window.status = pad.substring(0, offset) + msg;
+        offset--;
+        msgTimer = window.setTimeout("scrollMessage()", scrollDelay);
+    }
+    else if (offset <= 0) {
+        if (-offset < msg.length) {
+            window.status = msg.substring(-offset, msg.length);
+            offset--;
+            msgTimer = window.setTimeout("scrollMessage()", scrollDelay);
+        }
+        else {
+            window.status = "";
+            if (repeatCount) {
+                offset = scrollOffset;
+                msgTimer = window.setTimeout("scrollMessage()", repeatDelay);
+                if (repeatCount > 0)
+                    repeatCount--;
+            }
+        }
+    }
+}
+
+// end of scroller script --></SCRIPT>
+
+-- 
+- John Brochu (jbrochu@tiac.net)
+ Author, CalcWorks & PopupCD
+http://www.tiac.net/users/jbrochu

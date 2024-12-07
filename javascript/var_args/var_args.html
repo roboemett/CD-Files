@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<TITLE>Demonstrating variable number of function arguments.
+</TITLE>
+<script language = "javascript">
+
+function average()
+	{
+	var numArgs = average.arguments.length
+	var args = average.arguments
+	var total = 0
+
+	for (var i = 0; i < numArgs; i++)
+		total += args[i]
+
+	return total/numArgs
+	}
+
+</script>
+</HEAD>
+<BODY>
+<script>
+var x
+x = average(1,4,76,34,65)
+document.write("The average of 1, 4, 76, 34, and 65 is ")
+document.write(x)
+document.write("<P>")
+x = average(456,765,12,34,65,98,67,45,34)
+document.write("The average of 456, 765, 12, 34, 65, 98, 67, 45, and 34 is ")
+document.write(x)
+
+</script>
+</BODY>
+</HTML>

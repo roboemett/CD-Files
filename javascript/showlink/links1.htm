@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<SCRIPT>
+
+var theTimer
+
+function Coriolis()
+	{
+	var msg = "The Coriolis Group publishes Visual Developer magazine "
+	msg += "as well as a wide range of programming books. "
+	clearTimeout(theTimer)
+    ClearLinkInfoWindow()
+    parent.linkinfo.document.open()
+	parent.linkinfo.document.write(msg)
+    parent.linkinfo.document.close()
+    theTimer = setTimeout("ClearLinkInfoWindow()",3000)
+	return true
+	}
+
+function Netscape()
+	{
+    var msg = "Netscape Communications are the folks who developed the "
+	msg += "Navigator browser as well as a variety of other Web-related "
+	msg += "products."
+	clearTimeout(theTimer)
+    ClearLinkInfoWindow()
+	parent.linkinfo.document.open()
+	parent.linkinfo.document.write(msg)
+    parent.linkinfo.document.close()
+    theTimer = setTimeout("ClearLinkInfoWindow()",3000)
+	return true
+	}
+
+function ClearLinkInfoWindow()
+	{
+	parent.linkinfo.document.clear()
+    parent.linkinfo.document.write("")
+	parent.linkinfo.document.close()
+    }
+</SCRIPT>
+</HEAD>
+<BODY>
+<H1>Using the onMouseOver event</H1><BR>
+This is a test document. It contains some links, such as
+<A HREF="http://www.coriolis.com" onMouseOver="Coriolis()">this one</A> to
+the Coriolis Group site and
+<A href="http://www.netscape.com" onMouseOver="Netscape()">another</A>
+to Netscape's home page. As you pass the mouse cursor
+over each link you'll see a more detailed description of the destination site
+in the frame below.
+</BODY>
+</HTML>

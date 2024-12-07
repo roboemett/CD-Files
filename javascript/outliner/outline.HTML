@@ -1,0 +1,184 @@
+
+<HTML>
+<HEAD>
+<TITLE>Index code file</TITLE>
+<script>
+
+function index_entry(dest, loc, sublevels, value, level, open)
+	{
+    //Define the object for index entries. There are
+	//the following 6 properties.
+
+	//Location in the data document that this
+	//index entry points to.
+	this.dest = dest
+	//Location of this entry in index file.
+	this.loc = loc
+	//True if this heading has sublevels under it.
+	this.sublevels = sublevels
+	//Text to display for this level.
+	this.value = value
+	//Level (1 or 2 in current implementation) of this index entry.
+	this.level = level
+	//True if the subheads under this level are currently displayed.
+	this.open = open
+	}
+
+function make_array(size)
+	{
+	//Creates and initializes an array of size elements
+	// of index_entry objects.
+	this.length = size + 1
+	for (var i = 0; i < this.length ; i++)
+		this[i + 1] = new index_entry("", false, "", 1, false)
+	}
+
+function init_array()
+	{
+	//Loads the array with index information for the specific data file
+	//that this index is associated with.
+
+index[ 1].value = "Heading 1A"
+index[ 1].dest = "H1A"
+index[ 1].level =  1
+index[ 2].value = "Heading 2A"
+index[ 2].dest = "H2A"
+index[ 2].level =  2
+index[ 3].value = "Heading 2B"
+index[ 3].dest = "H2B"
+index[ 3].level =  2
+index[ 4].value = "Heading 1B"
+index[ 4].dest = "H1B"
+index[ 4].level =  1
+index[ 5].value = "Heading 1C"
+index[ 5].dest = "H1C"
+index[ 5].level =  1
+index[ 6].value = "Heading 2C"
+index[ 6].dest = "H2C"
+index[ 6].level =  2
+index[ 7].value = "Heading 2D"
+index[ 7].dest = "H2D"
+index[ 7].level =  2
+
+
+	//Once the array has been loaded we go thru the array and set
+	//the sublevels flag. For a given index entry it should be true
+	//only if the next index entry has a level of 2.
+	for (var i = 1; i < num; i++)
+		if (index[i].level == 1 && index[i+1].level == 2)
+			index[i].sublevels = true
+
+	//Now set the loc property. This is used only to identify the location
+	//of the index entry within the index document. We use a simple string
+	//consisting of "loc" followed by the element's array position.
+    for (i = 1; i <= num; i++)
+		index[i].loc = "loc" + i
+	}
+
+function display_index()
+	{
+	//Displays the index in its frame.
+	var buf = "<H3>" + theTitle + "</H3>"
+	var showSubs
+	for (var i = 1; i <= num; i++)
+		{
+		if (index[i].level == 1)
+			{
+			showSubs = index[i].open
+			buf += makeEntry(i)
+			}
+		if (index[i].level == 2 && showSubs)
+			buf += makeEntry(i)
+		}
+	clearIndex()
+    parent.theIndex.document.open()
+	parent.theIndex.document.write(buf)
+	parent.theIndex.document.close()
+	}
+
+function clearIndex()
+	{
+	//Erases the contents of the Index window. The following line
+	//should do the trick:
+
+	parent.theIndex.document.clear()
+
+	//but because of bugs in the current version of JavaScript
+	//you sometimes have to use the following:
+
+	//parent.theIndex.document.clear()
+	//parent.theIndex.document.write("")
+	//parent.theIndex.document.close()
+
+	}
+
+function makeEntry(n)
+	{
+	//Creates the index document entry for the index object
+	//with subscript n.
+	var buf = ""
+
+	//For level 1 entries.
+	if (index[n].level == 1)
+		{
+		buf += "<A name = 'loc" + n +"'"
+		buf += " href = 'JavaScript:parent.Hidden.clicked(" + n + ")'>"
+		buf += "<IMG SRC=internal-gopher-menu border=0>"
+		buf += " " + index[n].value + "</A>"
+		}
+
+	 //For level 2 entries
+	 if (index[n].level == 2)
+		{
+        buf += "<A name = 'loc" + n +"'"
+		buf += " href = 'JavaScript:parent.Hidden.clicked(" + n + ")'>"
+		buf += "<IMG SRC=internal-gopher-text border=0>"
+		buf += " " + index[n].value + "</A>"
+		}
+	 buf += "<p>"
+	 return (buf)
+	}
+
+function clicked(n)
+	{
+	//Called when the user clicks an on-screen index entry.
+
+	//Toggle the clicked item's open property. This is relevant only
+	//for level 1 entries but there's no harm in doing it for level 2
+	//entries as well.
+	index[n].open = !index[n].open
+
+	//We need to re-display the index only if the user clicked a
+	//top-level item that has subheadings.
+	if (index[n].level == 1 && index[n].sublevels)
+		display_index()
+
+	//Go to the clicked item in the index file.
+	parent.theIndex.location.hash = index[n].loc
+	
+	//Go to the destination in the data document.
+	parent.Main.location.hash = index[n].dest
+}
+
+</script>
+</HEAD>
+<BODY>
+<script>
+
+//global variable specifying number of index elements and the
+//document title.
+
+var num = 7
+var theTitle = "Data file for automatic outliner."
+
+
+//Create the array of index objects.
+index = new make_array(num)
+//Load the array with the index information.
+init_array()
+//Display the index.
+display_index()
+
+</script>
+</BODY>
+
